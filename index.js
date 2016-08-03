@@ -3,14 +3,18 @@ var express = require('express');
 var server = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+// Files from the routes folder
 var commentRouter = require('./routes/comments.js'); // the ./ says that you start in the same area
+var postRouter = require('./routes/posts.js');
 
 var port = process.env.PORT || 8080;
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors());
+// Files from the routes folder
 server.use(commentRouter); //tells the server to use this router
+server.use(postRouter);
 
 server.get('/', function(req,res){
   res.send('success!');
