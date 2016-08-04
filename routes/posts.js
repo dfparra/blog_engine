@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/posts', getAllPosts);
-router.get('/posts/:id', getPostsByID);
+router.get('/posts/:id', getPostsById);
 router.post('/posts', createPost);
 router.delete('/posts/:id', deletePost);
 router.put('/posts/:id', updatePost);
@@ -14,7 +14,7 @@ function getAllPosts(req, res, next){
   console.log('getting all posts');
   next();
 }
-function getPostsByID(req, res, next){
+function getPostsById(req, res, next){
   console.log('getting post with this id');
   next();
 }
