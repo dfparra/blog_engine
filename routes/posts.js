@@ -58,6 +58,19 @@ function deletePost(req, res, next){
   next();
 }
 function updatePost(req, res, next){
-  console.log('updating a comment');
-  next();
+  Post.findOneAndUpdate({_id: req.params.id},
+    req.body,
+    function(err, oldPost){
+      if(err){
+        res.status(500).json({
+          msg: err
+        });
+      } else{
+        res.status(200).json({
+          oldPost: oldPost
+        });
+      }
+    });
+  // console.log('updating a comment');
+  // next();
 }
