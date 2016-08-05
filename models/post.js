@@ -29,14 +29,7 @@ var postSchema = new Schema({
 
 //  .pre is something that is done prior to 'findOneAndUpdate'
 postSchema.pre('findOneAndUpdate', function(){
-  console.log('Updating!');
-  this.update({},
-    {
-      $set:
-      {
-        updated: new Date()
-      }
-    });
+  this.update({},{ $set: { updated: new Date() } });
 });
 
 var Post = mongoose.model('Post', postSchema);

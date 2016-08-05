@@ -27,9 +27,17 @@ function getAllPosts(req, res, next){
   // next();
 }
 function getPostsById(req, res, next){
-
-  console.log('getting post with this id');
-  next();
+  Post.findOne({_id: req.params.id}, function(err, foundPost){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        post: foundPost
+      });
+    }
+  });
 }
 function createPost(req, res, next){
   var post = new Post({
@@ -54,8 +62,21 @@ function createPost(req, res, next){
   // next();
 }
 function deletePost(req, res, next){
-  console.log('deleting a comment');
-  next();
+  Post.remove({_id: req.params.id},
+    function(err, delPost){
+      if (err){
+        res.status(500).json({
+          msg: err
+        });
+      } else{
+        res.status(201).json({
+          // console.log('Delted'+ delPost);
+        });
+      }
+    }
+  );
+  // console.log('deleting a comment');
+  // next();
 }
 function updatePost(req, res, next){
   Post.findOneAndUpdate({_id: req.params.id},
