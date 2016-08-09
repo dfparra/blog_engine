@@ -1,8 +1,7 @@
-
 var express = require('express');
 var router = express.Router();
 var Comment = require('../models/comment.js');
-// var Post = require('../models/post.js');
+
 
 router.get('/comments/:postId', getCommentsForAPost);
 router.post('/comments', createComment);
@@ -13,18 +12,18 @@ module.exports = router;
 
 function getCommentsForAPost(req, res, next){
   Comment.find({post: req.params.postId}, function(err, comments){
-    if (err) {
+    if(err) {
       res.status(500).json({
         msg: err
       })
-    } else{
-      if (comments) {
+    } else {
+      if(comments){
         res.status(200).json({
           comments: comments
         });
-      } else{
+      } else {
         res.status(404).json({
-          msg: "Couldn't find it"
+          msg: "Couldn't find it!"
         });
       }
     }
