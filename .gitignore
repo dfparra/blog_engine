@@ -3,3 +3,4 @@ node_modules
 *.log
 config.js
 user_sandbox.js
+secret.js
