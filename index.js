@@ -1,27 +1,26 @@
-
 var express = require('express');
 var server = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
-// Files from the routes folder
-var commentRouter = require('./routes/comments.js'); // the ./ says that you start in the same area
+var commentRouter = require('./routes/comments.js');
 var postRouter = require('./routes/posts.js');
+var userRouter = require('./routes/users.js');
 var mongoose = require('mongoose');
-
+var passport = require('passport');
+require('./config/passport.js');
 var port = process.env.PORT || 8080;
-//process.env is for Heroku deployment (similar to port)
-var mongoURI = process.env.MONGOURI || require('./config.js').mongoURI; //Looks at the route and pulls out mongoURI
+var mongoURI = process.env.MONGOURI || require('./config.js').mongoURI;
 
 mongoose.connect(mongoURI);
+server.use(passport.initialize());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors());
-// Files from the routes folder
-server.use(commentRouter); //tells the server to use this router
+server.use(commentRouter);
 server.use(postRouter);
-
-server.get('/', function(req,res){
-  res.send('success!');
+server.use(userRouter);
+server.get('/', function(req, res){
+  res.send('booya!');
 });
 
 server.listen(port, function(){
